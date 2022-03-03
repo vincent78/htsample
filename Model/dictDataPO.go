@@ -3,7 +3,7 @@ package Model
 import "htSample/global"
 
 type DictDataPO struct {
-	Id     int    `gorm:"primaryKey"`
+	Id     int    `gorm:"primaryKey;autoIncrement"`
 	Pid    int    ``
 	Seq    int    ``
 	Code   string ``

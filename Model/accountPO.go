@@ -3,7 +3,7 @@ package Model
 import "htSample/global"
 
 type AccountPO struct {
-	Id      int    `gorm:"primaryKey"`
+	Id      int    `gorm:"primaryKey;autoIncrement"`
 	Code    string ``
 	Name    string ``
 	Balance int    ``
@@ -23,6 +23,6 @@ func FindAccountAll() []AccountPO {
 
 func FindAccountByCode(code string) *AccountPO {
 	r := &AccountPO{}
-	global.DB.Debug().Where("code = ?", code).Find(r)
+	global.DB.Where("code = ?", code).Find(r)
 	return r
 }

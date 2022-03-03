@@ -3,7 +3,7 @@ package Model
 import "htSample/global"
 
 type DictTypePO struct {
-	Id     int    `gorm:"primaryKey"`
+	Id     int    `gorm:"primaryKey;autoIncrement"`
 	Code   string ``
 	Name   string ``
 	Status int    `gorm:"default:0"`
