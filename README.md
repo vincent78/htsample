@@ -60,43 +60,43 @@ create table account (
     code varchar(20),
     name varchar(100),
     balance int,          -- '以0.01元为单位'
-    ccode varchar(20),    -- 货币单位 sys_dict_data:4
+    curr varchar(20),    -- 货币单位 sys_dict_data:4
     remark varchar(100)
 );
 -- balance int, frozen int,
-insert into account(id,code,name,balance,ccode) values (1,'a001','bob123',10000,'usd');
-insert into account(id,code,name,balance,ccode) values (2,'a002','alice456',1,'usd');
+insert into account(id,code,name,balance,curr) values (1,'a001','bob123',10000,'usd');
+insert into account(id,code,name,balance,curr) values (2,'a002','alice456',1,'usd');
 
 create table account_balance(
     id serial primary key,
-    acode varchar(20),        -- account.code
-    ccode varchar(20),        -- 货币单位 sys_dict_type:2
+    code varchar(20),        -- account.code
+    curr varchar(20),        -- 货币单位 sys_dict_type:2
     balance int,              -- '以0.01元为单位'
     frozen int                -- '以0.01元为单位'
 );
-insert into account_balance(id,acode,ccode,balance,frozen) values (1,'a001','usd',10000,0);
-insert into account_balance(id,acode,ccode,balance,frozen) values (2,'a002','usd',1,0);
+insert into account_balance(id,code,curr,balance,frozen) values (1,'a001','usd',10000,0);
+insert into account_balance(id,code,curr,balance,frozen) values (2,'a002','usd',1,0);
 
 create table payment(
     id serial primary key,
-    acode varchar(20),      -- account.code
-    tcode varchar(20),      -- sys_dict_type:1
-    ccode varchar(20),      -- sys_dict_type:2
+    account varchar(20),      -- account.code
+    ptype varchar(20),      -- sys_dict_type:1
+    curr varchar(20),      -- sys_dict_type:2
     balance int ,           -- '以0.01元为单位'
     frozen int,             -- '以0.01元为单位'
-    pToken varchar(64),     -- 当前操作的token
+    token varchar(64),     -- 当前操作的token
     remark varchar(100),
     create_at int,          -- timestamp
     create_by varchar(20)   -- 操作员
 );
 create table payment_process(
     id serial primary key,
-    acode varchar(20),      -- account.code
-    tcode varchar(20),      -- sys_dict_type:1
-    ccode varchar(20),      -- sys_dict_type:2
+    account varchar(20),      -- account.code
+    ptype varchar(20),      -- sys_dict_type:1
+    curr varchar(20),      -- sys_dict_type:2
     balance int ,           -- '以0.01元为单位'
     frozen int,             -- '以0.01元为单位'
-    pToken varchar(64),     -- 当前操作的token
+    token varchar(64),     -- 当前操作的token
     seq int,                -- 当前操作的次序
     remark varchar(100),
     create_at int,          -- timestamp

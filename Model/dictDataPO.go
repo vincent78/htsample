@@ -3,16 +3,16 @@ package Model
 import "htSample/global"
 
 type DictDataPO struct {
-	Id     int    `gorm:"id"`
-	Pid    int    `gorm:"pid"`
-	Seq    int    `gorm:"seq"`
-	Code   string `gorm:"code"`
-	Name   string `gorm:"name"`
-	Ext1   string `gorm:"ext1"`
-	Ext2   string `gorm:"ext2"`
-	Ext3   string `gorm:"ext3"`
-	Status int    `gorm:"status"`
-	Remark string `gorm:"remark"`
+	Id     int    `gorm:"primaryKey"`
+	Pid    int    ``
+	Seq    int    ``
+	Code   string ``
+	Name   string ``
+	Ext1   string ``
+	Ext2   string ``
+	Ext3   string ``
+	Status int    ``
+	Remark string ``
 }
 
 func (d DictDataPO) TableName() string {

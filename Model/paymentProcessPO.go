@@ -1,17 +1,17 @@
 package Model
 
 type PaymentProcessPO struct {
-	Id       int    `gorm:"id"`
-	ACode    string `gorm:"acode"`
-	TCode    string `gorm:"tcode"`   // sys_dict_type:1
-	CCode    string `gorm:"ccode"`   // sys_dict_type:2
-	Balance  int    `gorm:"balance"` // 以0.01元为单位
-	Frozen   int    `gorm:"frozen"`  // 以0.01元为单位
-	PToken   string `gorm:"ptoken"`
+	Id       int    `gorm:"primaryKey"`
+	Account  string ``
+	PType    string `gorm:"column:ptype"` // sys_dict_type:1
+	Curr     string ``                    // sys_dict_type:2
+	Balance  int    `gorm:"balance"`      // 以0.01元为单位
+	Frozen   int    `gorm:"frozen"`       // 以0.01元为单位
+	Token    string ``
 	Seq      int    `gorm:"seq"`
 	Remark   string `gorm:"remark"`
-	CreateAt int    `gorm:"create_at"`
-	CreateBy string `gorm:"create_by"`
+	CreateAt int    `gorm:"column:create_at"`
+	CreateBy string `gorm:"column:create_by"`
 }
 
 func (a PaymentProcessPO) TableName() string {
