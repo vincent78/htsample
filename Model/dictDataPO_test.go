@@ -7,21 +7,18 @@ import (
 
 func TestFindDictDataByPID(t *testing.T) {
 	err := ConnectDB(t)
-	if err != nil {
-		return
-	}
+	assert.NoError(t, err)
 
-	l := FindDictDataByPID(1)
-	assert.Equal(t, len(l), 3)
+	_, err = FindDictDataByPID(1)
+	assert.NoError(t, err)
 }
 
 func TestFindDictDataListByPIDAndCode(t *testing.T) {
 	err := ConnectDB(t)
-	if err != nil {
-		return
-	}
+	assert.NoError(t, err)
 
-	o := FindDictDataListByPIDAndCode(1, "outgoing")
+	o, err := FindDictDataListByPIDAndCode(1, "outgoing")
+	assert.NoError(t, err)
 	assert.Equal(t, o, &DictDataPO{
 		Id:     2,
 		Pid:    1,

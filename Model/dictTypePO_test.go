@@ -7,20 +7,17 @@ import (
 
 func TestDictTypeFindAll(t *testing.T) {
 	err := ConnectDB(t)
-	if err != nil {
-		return
-	}
-	l := FindAllDictType()
-	assert.Equal(t, len(l), 2)
+	assert.NoError(t, err)
+	_, err = FindAllDictType()
+	assert.NoError(t, err)
 }
 
 func TestDictTypeFindCode(t *testing.T) {
 	err := ConnectDB(t)
-	if err != nil {
-		return
-	}
+	assert.NoError(t, err)
 
-	o := FindDictTypeByCode("payment_type")
+	o, err := FindDictTypeByCode("payment_type")
+	assert.NoError(t, err)
 	assert.EqualValues(t, o, &DictTypePO{
 		Id:     1,
 		Code:   "payment_type",

@@ -7,21 +7,18 @@ import (
 
 func TestFindAccountAll(t *testing.T) {
 	err := ConnectDB(t)
-	if err != nil {
-		return
-	}
+	assert.NoError(t, err)
 
-	l := FindAccountAll()
-	assert.Equal(t, len(l), 2)
+	_, err = FindAccountAll()
+	assert.NoError(t, err)
 }
 
 func TestFindAccountByCode(t *testing.T) {
 	err := ConnectDB(t)
-	if err != nil {
-		return
-	}
+	assert.NoError(t, err)
 
-	a := FindAccountByCode("a001")
+	a, err := FindAccountByCode("a001")
+	assert.NoError(t, err)
 	assert.Equal(t, a, &AccountPO{
 		Id:      1,
 		Code:    "a001",

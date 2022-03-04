@@ -14,14 +14,14 @@ func (d DictTypePO) TableName() string {
 	return "sys_dict_type"
 }
 
-func FindAllDictType() []DictTypePO {
+func FindAllDictType() ([]DictTypePO, error) {
 	r := make([]DictTypePO, 0)
-	global.DB.Where("status = 0").Find(&r)
-	return r
+	o := global.DB.Where("status = 0").Find(&r)
+	return r, o.Error
 }
 
-func FindDictTypeByCode(code string) *DictTypePO {
+func FindDictTypeByCode(code string) (*DictTypePO, error) {
 	r := &DictTypePO{}
-	global.DB.Where("status = 0 and code = ?", code).Find(r)
-	return r
+	o := global.DB.Where("status = 0 and code = ?", code).Find(r)
+	return r, o.Error
 }

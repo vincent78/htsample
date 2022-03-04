@@ -15,14 +15,14 @@ func (a AccountPO) TableName() string {
 	return "account"
 }
 
-func FindAccountAll() []AccountPO {
+func FindAccountAll() ([]AccountPO, error) {
 	r := make([]AccountPO, 0)
-	global.DB.Find(&r)
-	return r
+	o := global.DB.Find(&r)
+	return r, o.Error
 }
 
-func FindAccountByCode(code string) *AccountPO {
+func FindAccountByCode(code string) (*AccountPO, error) {
 	r := &AccountPO{}
-	global.DB.Where("code = ?", code).Find(r)
-	return r
+	o := global.DB.Where("code = ?", code).Find(r)
+	return r, o.Error
 }

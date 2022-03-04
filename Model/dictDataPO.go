@@ -19,14 +19,14 @@ func (d DictDataPO) TableName() string {
 	return "sys_dict_data"
 }
 
-func FindDictDataByPID(pid int) []DictDataPO {
+func FindDictDataByPID(pid int) ([]DictDataPO, error) {
 	r := make([]DictDataPO, 0)
-	global.DB.Where("status = 0 and pid = ? ", pid).Order("seq asc").Find(&r)
-	return r
+	o := global.DB.Where("status = 0 and pid = ? ", pid).Order("seq asc").Find(&r)
+	return r, o.Error
 }
 
-func FindDictDataListByPIDAndCode(pid int, code string) *DictDataPO {
+func FindDictDataListByPIDAndCode(pid int, code string) (*DictDataPO, error) {
 	r := &DictDataPO{}
-	global.DB.Where("status = 0 and pid = ? and code = ?", pid, code).Find(r)
-	return r
+	o := global.DB.Where("status = 0 and pid = ? and code = ?", pid, code).Find(r)
+	return r, o.Error
 }
