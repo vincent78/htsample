@@ -1,5 +1,12 @@
 package Model
 
+import (
+	"fmt"
+	"htSample/global"
+)
+
+var errorPaymentProcessNull = fmt.Errorf("paymentProcess instance is nil")
+
 type PaymentProcessPO struct {
 	Id       int    `gorm:"primaryKey;autoIncrement"`
 	Account  string ``
@@ -16,4 +23,24 @@ type PaymentProcessPO struct {
 
 func (a PaymentProcessPO) TableName() string {
 	return "payment_process"
+}
+
+func FindPaymentProcessList() ([]PaymentProcessPO, error) {
+	l := make([]PaymentProcessPO, 0)
+	r := global.DB.Order("token desc, seq asc").Find(&l)
+	return l, r.Error
+}
+
+func FindPaymentProcessListByToken(tk string) ([]PaymentProcessPO, error) {
+	l := make([]PaymentProcessPO, 0)
+	r := global.DB.Where("token = ?", tk).Order("seq asc").Find(&l)
+	return l, r.Error
+}
+
+func (a *PaymentProcessPO) Create() error {
+	if a == nil {
+		return errorPaymentProcessNull
+	}
+	r := global.DB.Create(a)
+	return r.Error
 }

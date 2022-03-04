@@ -45,9 +45,9 @@ func FindPaymentPOListByAccount(a string) ([]PaymentPO, error) {
 	return l, r.Error
 }
 
-func FindPaymentPOByToken(t string) (*PaymentPO, error) {
+func FindPaymentPOByToken(a, t string) (*PaymentPO, error) {
 	r := &PaymentPO{}
-	o := global.DB.Where("token = ?", t).Find(r)
+	o := global.DB.Where("account = ? and token = ?", a, t).Find(r)
 	return r, o.Error
 }
 
@@ -71,7 +71,7 @@ func (p *PaymentPO) refreshNum() error {
 	if p == nil {
 		return errorPaymentNull
 	}
-	t, e := FindPaymentPOByToken(p.Token)
+	t, e := FindPaymentPOByToken(p.Account, p.Token)
 	if e != nil {
 		return e
 	}

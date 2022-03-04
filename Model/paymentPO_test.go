@@ -24,7 +24,7 @@ func TestPaymentPO_Create(t *testing.T) {
 	err = p.Create()
 	assert.NoError(t, err, "no error")
 
-	o, err := FindPaymentPOByToken(tk)
+	o, err := FindPaymentPOByToken(p.Account, p.Token)
 	assert.NoError(t, err)
 	assert.Equal(t, o.Frozen, int64(101))
 }
@@ -41,7 +41,7 @@ func TestPaymentPO(t *testing.T) {
 	err := ConnectDB(t)
 	assert.NoError(t, err)
 
-	tki := utils.GetUUID()
+	tk := utils.GetUUID()
 
 	const sb = int64(110)
 	const sf = int64(0)
@@ -52,21 +52,20 @@ func TestPaymentPO(t *testing.T) {
 		"usd",
 		sb,
 		sf,
-		tki,
+		tk,
 		"admin",
 	)
 
 	err = pi.Create()
 	assert.NoError(t, err, "create error")
 
-	tko := utils.GetUUID()
 	po := NewPaymentPO(
 		"t002",
 		"outgoing",
 		"usd",
 		sb,
 		sf,
-		tko,
+		tk,
 		"admin",
 	)
 

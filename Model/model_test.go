@@ -10,7 +10,7 @@ func ConnectDB(t *testing.T) error {
 	if err != nil {
 		t.Errorf("\nconnect the db failure : %v", err.Error())
 	} else {
-		t.Logf("\nconnect the db success")
+		t.Logf("connect the db success")
 	}
 	return err
 }
