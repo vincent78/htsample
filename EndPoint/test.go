@@ -13,7 +13,7 @@ import (
 // 这里根据我们Demo来创建一个响应和请求
 // 当然你想怎么创建怎么创建 也可以共用 这里我分开写 便于大家看的清楚
 
-// Hello 业务使用的请求和响应格式
+// HelloRequest Hello 业务使用的请求和响应格式
 // HelloRequest 请求格式
 type HelloRequest struct {
 	Name string `json:"name"`
@@ -24,7 +24,7 @@ type HelloResponse struct {
 	Reply string `json:"reply"`
 }
 
-// Bye 业务使用的请求和响应格式
+// ByeRequest Bye 业务使用的请求和响应格式
 // ByeRequest 请求格式
 type ByeRequest struct {
 	Name string `json:"name"`
@@ -35,7 +35,6 @@ type ByeResponse struct {
 	Reply string `json:"reply"`
 }
 
-// ------------ 当然 也可以通用的写 ----------
 // Request 请求格式
 type Request struct {
 	Name string `json:"name"`
@@ -46,7 +45,7 @@ type Response struct {
 	Reply string `json:"reply"`
 }
 
-// 这里创建构造函数 hello方法的业务处理
+// MakeServerEndPointHello 这里创建构造函数 hello方法的业务处理
 // MakeServerEndPointHello 创建关于业务的构造函数
 // 传入 Server/server.go 定义的相关业务接口
 // 返回 go-kit/endpoint.Endpoint (实际上就是一个函数签名)
@@ -68,7 +67,7 @@ func MakeServerEndPointHello(s Service.IServer) endpoint.Endpoint {
 	}
 }
 
-// 这里创建构造函数 Bye方法的业务处理
+// MakeServerEndPointBye 这里创建构造函数 Bye方法的业务处理
 // MakeServerEndPointBye 创建关于业务的构造函数
 // 传入 Server/server.go 定义的相关业务接口
 // 返回 go-kit/endpoint.Endpoint (实际上就是一个函数签名)
