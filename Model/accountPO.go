@@ -3,12 +3,12 @@ package Model
 import "htSample/global"
 
 type AccountPO struct {
-	Id      int    `gorm:"primaryKey;autoIncrement"`
-	Code    string ``
-	Name    string ``
-	Balance int    ``
-	Curr    string `` // sys_dict_type:2
-	Remark  string ``
+	Id      int    `gorm:"primaryKey;autoIncrement" json:"id"`
+	Code    string `json:"code"`
+	Name    string `json:"name"`
+	Balance int    `json:"balance"`
+	Curr    string `json:"curr"` // sys_dict_type:2
+	Remark  string `json:"remark"`
 }
 
 func (a AccountPO) TableName() string {

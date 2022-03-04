@@ -3,11 +3,11 @@ package Model
 import "htSample/global"
 
 type DictTypePO struct {
-	Id     int    `gorm:"primaryKey;autoIncrement"`
-	Code   string ``
-	Name   string ``
-	Status int    `gorm:"default:0"`
-	Remark string ``
+	Id     int    `gorm:"primaryKey;autoIncrement" json:"id"`
+	Code   string `json:"code"`
+	Name   string `json:"name"`
+	Status int    `gorm:"default:0" json:"status"`
+	Remark string `json:"remark"`
 }
 
 func (d DictTypePO) TableName() string {

@@ -3,11 +3,11 @@ package Model
 import "htSample/global"
 
 type AccountBalancePO struct {
-	Id      int    `gorm:"primaryKey;autoIncrement"`
-	Code    string ``
-	Curr    string ``
-	Balance int64  `` //以0.01元为单位
-	Frozen  int64  `` //以0.01元为单位
+	Id      int    `gorm:"primaryKey;autoIncrement" json:"id"`
+	Code    string `json:"code"`
+	Curr    string `json:"curr"`
+	Balance int64  `json:"balance"` //以0.01元为单位
+	Frozen  int64  `json:"frozen"`  //以0.01元为单位
 }
 
 func (a AccountBalancePO) TableName() string {
