@@ -84,6 +84,27 @@ var (
 	}
 )
 
+var (
+	ApiFlags = []cli.Flag{
+		ApiHostFlag,
+		ApiPortFlag,
+	}
+
+	ApiHostFlag = &cli.StringFlag{
+		Name:    "host",
+		EnvVars: []string{global.EnvName("API_HOST")},
+		Value:   "0.0.0.0",
+		Usage:   "the host for htsample api",
+	}
+
+	ApiPortFlag = &cli.IntFlag{
+		Name:    "port",
+		EnvVars: []string{global.EnvName("API_PORT")},
+		Value:   8080,
+		Usage:   "the port for htsample api",
+	}
+)
+
 func init() {
 }
 
@@ -110,6 +131,7 @@ func NewApp(gitCommit, buildDate string) *cli.App {
 	}
 	sort.Sort(cli.CommandsByName(app.Commands))
 	app.Flags = append(app.Flags, DefaultFlags...)
+	app.Flags = append(app.Flags, ApiFlags...)
 	sort.Sort(cli.FlagsByName(app.Flags))
 
 	app.CommandNotFound = func(c *cli.Context, command string) {

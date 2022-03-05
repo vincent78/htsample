@@ -24,9 +24,17 @@ func TestPaymentPO_Create(t *testing.T) {
 	err = p.Create()
 	assert.NoError(t, err, "no error")
 
-	o, err := FindPaymentPOByToken(p.Account, p.Token)
+	o, err := FindPaymentPOByAccountToken(p.Account, p.Token)
 	assert.NoError(t, err)
 	assert.Equal(t, o.Frozen, int64(101))
+}
+
+func TestFindPaymentPOList(t *testing.T) {
+	err := ConnectDB(t)
+	assert.NoError(t, err)
+
+	_, err = FindPaymentPOList()
+	assert.NoError(t, err)
 }
 
 func TestFindPaymentPOListByAccount(t *testing.T) {

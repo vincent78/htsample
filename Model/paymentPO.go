@@ -38,6 +38,11 @@ func NewPaymentPO(a, t, c string, b, f int64, tk, u string) *PaymentPO {
 		CreateBy: u,
 	}
 }
+func FindPaymentPOList() ([]PaymentPO, error) {
+	l := make([]PaymentPO, 0)
+	r := global.DB.Order("create_at desc").Find(&l)
+	return l, r.Error
+}
 
 func FindPaymentPOListByAccount(a string) ([]PaymentPO, error) {
 	l := make([]PaymentPO, 0)
@@ -45,7 +50,13 @@ func FindPaymentPOListByAccount(a string) ([]PaymentPO, error) {
 	return l, r.Error
 }
 
-func FindPaymentPOByToken(a, t string) (*PaymentPO, error) {
+func FindPaymentPOListByToken(t string) ([]PaymentPO, error) {
+	r := make([]PaymentPO, 0)
+	o := global.DB.Where("token = ?", t).Order("ptype desc").Find(&r)
+	return r, o.Error
+}
+
+func FindPaymentPOByAccountToken(a, t string) (*PaymentPO, error) {
 	r := &PaymentPO{}
 	o := global.DB.Where("account = ? and token = ?", a, t).Find(r)
 	return r, o.Error
@@ -71,7 +82,7 @@ func (p *PaymentPO) refreshNum() error {
 	if p == nil {
 		return errorPaymentNull
 	}
-	t, e := FindPaymentPOByToken(p.Account, p.Token)
+	t, e := FindPaymentPOByAccountToken(p.Account, p.Token)
 	if e != nil {
 		return e
 	}

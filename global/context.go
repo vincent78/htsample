@@ -11,6 +11,11 @@ var GitCommit string
 var BuildDate string
 
 const (
+	FAILURE = 410
+	SUCCESS = 200
+)
+
+const (
 	ClientIdentifier = "htsample"
 
 	VersionMajor = 0          // Major version component of the current release
