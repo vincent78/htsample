@@ -56,6 +56,12 @@ func FindPaymentPOListByToken(t string) ([]PaymentPO, error) {
 	return r, o.Error
 }
 
+func FindPaymentPOListByAccountCurr(a, c string) (*PaymentPO, error) {
+	r := &PaymentPO{}
+	o := global.DB.Where("account = ? and curr = ?", a, c).Find(&r)
+	return r, o.Error
+}
+
 func FindPaymentPOByAccountToken(a, t string) (*PaymentPO, error) {
 	r := &PaymentPO{}
 	o := global.DB.Where("account = ? and token = ?", a, t).Find(r)
@@ -116,6 +122,8 @@ func (p *PaymentPO) CommitNum(num int64) error {
 		return fmt.Errorf("account:%v Frozen(%v) < num(%v)", p.Account, p.Frozen, num)
 	}
 	p.Frozen -= num
-	r := global.DB.Model(p).Updates(map[string]interface{}{"frozen": p.Frozen})
+	p.Balance += num
+	//r := global.DB.Model(p).Updates(map[string]interface{}{"frozen": p.Frozen})
+	r := global.DB.Save(p)
 	return r.Error
 }

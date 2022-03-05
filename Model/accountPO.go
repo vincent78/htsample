@@ -3,12 +3,10 @@ package Model
 import "htSample/global"
 
 type AccountPO struct {
-	Id      int    `gorm:"primaryKey;autoIncrement" json:"id"`
-	Code    string `json:"code"`
-	Name    string `json:"name"`
-	Balance int    `json:"balance"`
-	Curr    string `json:"curr"` // sys_dict_type:2
-	Remark  string `json:"remark"`
+	Id     int    `gorm:"primaryKey;autoIncrement" json:"id"`
+	Code   string `json:"code"`
+	Name   string `json:"name"`
+	Remark string `json:"remark"`
 }
 
 func (a AccountPO) TableName() string {
@@ -23,6 +21,6 @@ func FindAccountAll() ([]AccountPO, error) {
 
 func FindAccountByCode(code string) (*AccountPO, error) {
 	r := &AccountPO{}
-	o := global.DB.Where("code = ?", code).Find(r)
+	o := global.DB.Where("code = ?", code).First(r)
 	return r, o.Error
 }

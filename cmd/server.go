@@ -71,6 +71,7 @@ func prepareWeb(ctx *cli.Context, wg *sync.WaitGroup) {
 	// 1.先创建我们最开始定义的Server/server.go
 	as := Service.AccountServer{}
 	ps := Service.PaymentServer{}
+	ts := Service.TransferServer{}
 	// 2.在用EndPoint/endpoint.go 创建业务服务
 
 	accountByCode := EndPoint.MakeServerEndPointAccountByCode(as)
@@ -79,6 +80,8 @@ func prepareWeb(ctx *cli.Context, wg *sync.WaitGroup) {
 	paymentList := EndPoint.MakeServerEndPointPaymentList(ps)
 	paymentListByToken := EndPoint.MakeServerEndPointPaymentListByToken(ps)
 	paymentListByAccount := EndPoint.MakeServerEndPointPaymentListByAccount(ps)
+
+	transfer := EndPoint.MakeServerEndPointTransfer(ts)
 
 	// 3.使用 kit 创建 handler
 	// 固定格式
@@ -89,6 +92,8 @@ func prepareWeb(ctx *cli.Context, wg *sync.WaitGroup) {
 	paymentListServer := httpTransport.NewServer(paymentList, Transport.PaymentListDecodeRequest, Transport.PaymentListEncodeResponse)
 	paymentListByTokenServer := httpTransport.NewServer(paymentListByToken, Transport.PaymentByTokenDecodeRequest, Transport.PaymentByTokenEncodeResponse)
 	paymentListByAccountServer := httpTransport.NewServer(paymentListByAccount, Transport.PaymentByAccountDecodeRequest, Transport.PaymentByAccountEncodeResponse)
+
+	transferServer := httpTransport.NewServer(transfer, Transport.TransferDecodeRequest, Transport.TransferByCodeEncodeResponse)
 
 	// 使用http包启动服务
 	//go http.ListenAndServe("0.0.0.0:8000", helloServer)
@@ -102,6 +107,8 @@ func prepareWeb(ctx *cli.Context, wg *sync.WaitGroup) {
 	r.Handle("/paymentList", paymentListServer).Methods("GET")
 	r.Handle("/paymentListByToken", paymentListByTokenServer).Methods("GET")
 	r.Handle("/paymentListByAccount", paymentListByAccountServer).Methods("GET")
+
+	r.Handle("/transfer", transferServer).Methods("POST")
 
 	go http.ListenAndServe(fmt.Sprintf("%v:%v", ctx.String("host"), ctx.Int("port")), r)
 

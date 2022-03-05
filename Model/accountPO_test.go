@@ -20,11 +20,9 @@ func TestFindAccountByCode(t *testing.T) {
 	a, err := FindAccountByCode("a001")
 	assert.NoError(t, err)
 	assert.Equal(t, a, &AccountPO{
-		Id:      1,
-		Code:    "a001",
-		Name:    "bob123",
-		Balance: 10000,
-		Curr:    "usd",
-		Remark:  "",
+		Id:     1,
+		Code:   "a001",
+		Name:   "bob123",
+		Remark: "",
 	})
 }
