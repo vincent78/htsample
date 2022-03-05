@@ -24,3 +24,20 @@ postgres=# grant all on htsample to htsample;
 
 ## 初始化语句
 [init.sql](doc/db/init.sql)
+
+
+# 打包发布
+## 编译代码
+> make build
+
+## 命令行运行
+> build/bin/htsample --host 127.0.0.1 --port 8080 --dbHost dev.vincent78.top --dbPort 15432 --dbUser htsample --dbPwd htsample --dbName htsample server
+
+
+## 生成本地docker （MAC)
+> make docker
+
+
+## 生成服务器上运行的docker
+> make dockerRelease
+

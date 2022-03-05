@@ -5,6 +5,7 @@ import "htSample/Model"
 type IAccountServer interface {
 	AccountByCode(code string) Model.Result
 	AccountList() Model.Result
+	AccountBalanceByCode(code string) Model.Result
 }
 
 type AccountServer struct {
@@ -21,6 +22,15 @@ func (a AccountServer) AccountByCode(c string) Model.Result {
 
 func (a AccountServer) AccountList() Model.Result {
 	l, e := Model.FindAccountAll()
+	if e == nil {
+		return Model.SuccessResult(l)
+	} else {
+		return Model.FailureResult(e.Error())
+	}
+}
+
+func (a AccountServer) AccountBalanceByCode(c string) Model.Result {
+	l, e := Model.FindAccountBalancePOByCode(c)
 	if e == nil {
 		return Model.SuccessResult(l)
 	} else {

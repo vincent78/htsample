@@ -76,6 +76,7 @@ func prepareWeb(ctx *cli.Context, wg *sync.WaitGroup) {
 
 	accountByCode := EndPoint.MakeServerEndPointAccountByCode(as)
 	accountList := EndPoint.MakeServerEndPointAccountList(as)
+	accountBlanceByCode := EndPoint.MakeServerEndPointAccountBalanceByCode(as)
 
 	paymentList := EndPoint.MakeServerEndPointPaymentList(ps)
 	paymentListByToken := EndPoint.MakeServerEndPointPaymentListByToken(ps)
@@ -88,6 +89,7 @@ func prepareWeb(ctx *cli.Context, wg *sync.WaitGroup) {
 	// 传入 业务服务 以及 定义的 加密解密方法
 	accountByCodeServer := httpTransport.NewServer(accountByCode, Transport.AccountByCodeDecodeRequest, Transport.AccountByCodeEncodeResponse)
 	accountListServer := httpTransport.NewServer(accountList, Transport.AccountListDecodeRequest, Transport.AccountListEncodeResponse)
+	accountBlanceByCodeServer := httpTransport.NewServer(accountBlanceByCode, Transport.AccountBalanceByCodeDecodeRequest, Transport.AccountBalanceByCodeEncodeResponse)
 
 	paymentListServer := httpTransport.NewServer(paymentList, Transport.PaymentListDecodeRequest, Transport.PaymentListEncodeResponse)
 	paymentListByTokenServer := httpTransport.NewServer(paymentListByToken, Transport.PaymentByTokenDecodeRequest, Transport.PaymentByTokenEncodeResponse)
@@ -103,6 +105,7 @@ func prepareWeb(ctx *cli.Context, wg *sync.WaitGroup) {
 
 	r.Handle("/accountByCode", accountByCodeServer).Methods("GET")
 	r.Handle("/accountList", accountListServer).Methods("GET")
+	r.Handle("/accountBalanceByCode", accountBlanceByCodeServer).Methods("GET")
 
 	r.Handle("/paymentList", paymentListServer).Methods("GET")
 	r.Handle("/paymentListByToken", paymentListByTokenServer).Methods("GET")

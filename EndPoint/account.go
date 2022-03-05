@@ -40,3 +40,19 @@ func MakeServerEndPointAccountList(s Service.IAccountServer) endpoint.Endpoint {
 		return AccountResponse{Result: s.AccountList()}, nil
 	}
 }
+
+func MakeServerEndPointAccountBalanceByCode(s Service.IAccountServer) endpoint.Endpoint {
+	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
+		r, ok := request.(AccountRequest)
+		if !ok {
+			e := fmt.Errorf("the request is not AccountRequest")
+			return &AccountResponse{Model.Result{
+				Code:    global.FAILURE,
+				Error:   e,
+				Context: nil,
+			}}, e
+		} else {
+			return AccountResponse{Result: s.AccountBalanceByCode(r.Code)}, nil
+		}
+	}
+}
