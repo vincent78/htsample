@@ -97,7 +97,7 @@ func prepareWeb(ctx *cli.Context, wg *sync.WaitGroup) {
 
 	transferServer := httpTransport.NewServer(transfer, Transport.TransferDecodeRequest, Transport.TransferByCodeEncodeResponse)
 
-	// 使用http包启动服务
+	//
 	//go http.ListenAndServe("0.0.0.0:8000", helloServer)
 	//go http.ListenAndServe("0.0.0.0:8001", sayServer)
 
